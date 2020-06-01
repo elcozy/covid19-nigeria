@@ -8,13 +8,17 @@
   top: 0;
 }
 #loader {
-  width: 100%;
-  height: 100%;
-  background: #fff;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.527);
   z-index: 999999;
+  position: absolute;
   display: flex;
   justify-content: center;
 }
+
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -239,7 +243,7 @@ svg {
   flex: 1;
 }
 .areaAllCount {
-  color: #556b2f;
+  color: blue;
   font-size: 13px !important;
   line-height: 20px;
 }
@@ -476,7 +480,7 @@ svg g:hover text {
   height: 20px;
   font-size: 13px;
   line-height: 20px;
-  color: tomato;
+  color: #990;
 }
 .statsHover.color {
   width: 8px;
@@ -489,7 +493,7 @@ svg g:hover text {
   font-size: 13px;
   line-height: 20px;
   text-align: right;
-  color: tomato;
+  color: #990;
 }
 .svg-pan-zoom_viewport {
   display: block;

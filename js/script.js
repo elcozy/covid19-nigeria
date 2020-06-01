@@ -1,12 +1,3 @@
-function loaderPage() {
-  myVar = setTimeout(showPage, 2500);
-}
-
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("contents").style.display = "block";
-}
-
 function collapseBurger() {
   var t = document.getElementById("infoD");
   "none" === t.style.display
@@ -99,8 +90,7 @@ for (let t = 0; t < allStatePath.length; t++) {
         (state_stats.style.left = r + "px"),
         (state_stats.style.top = c + "px");
     };
-  (e.onmouseout = a),
-    (e.onmouseover = n),
+  (e.onmouseover = n),
     (e.ontouchstart = n),
     (e.ontouchstart = a),
     (e.onclick = n);
@@ -147,7 +137,7 @@ function appendData(t) {
 function setSideNavList(t) {
   for (var e = document.getElementById("areaAlls"), a = 0; a < t.length; a++) {
     var n = t[a].state,
-      o = t[a].confirmedCases.toLocaleString("en"),
+      o = t[a].casesOnAdmission.toLocaleString("en"),
       s = (t[a].discharged, document.createElement("div"));
     s.className = "areaDiv";
     var r = document.createElement("div");
@@ -169,7 +159,8 @@ fetch("https://covidnigeria.herokuapp.com/api")
     return t.json();
   })
   .then(function (t) {
-    appendData(t.data);
+    (document.getElementById("loader").style.display = "none"),
+      appendData(t.data);
   })
   .catch(function (t) {
     console.log("error: " + t);
@@ -241,6 +232,5 @@ window.addEventListener("resize", function (t) {
     t.preventDefault(), panZoom.resetZoom(), panZoom.center();
   }),
   (window.onresize = function () {
-    var t = document.getElementById("infoD");
-    console.log(55), (t.style.display = "block");
+    document.getElementById("infoD").style.display = "block";
   });
