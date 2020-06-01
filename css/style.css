@@ -263,7 +263,7 @@ svg {
 }
 #clickMap span::before {
   content: "";
-  background-image: url(/img/infoIcon.svg);
+  background-image: url("/img/infoIcon.svg");
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: top;
