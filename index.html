@@ -36,9 +36,9 @@
 
     <div id="contents" class="wholeBody">
         <div class="head"> <span onclick="collapseBurger()" class="collapse-icon"><img id="imgIcon"
-                    onclick="collapseIcon(this)" src="./img/menu.svg" alt=""></i></span>
+                    onclick="collapseIcon(this)" src="./img/menu.svg" alt="" height="22" width="22px"></span>
             <div class="vl"></div>
-            <h1> <img src="./img/virus.png" alt=""> COVID-19 Tracker Nigeria</h1>
+            <h1> <img src="./img/virus.png" alt="" height="22" width="22px"> COVID-19 Tracker Nigeria</h1>
         </div>
         <div class="map_and_info">
             <div class="infoDatar" id="infoD">
@@ -67,13 +67,22 @@
                 </div>
                 <div class="combinedArea">
                     <div>
-                        <div id="areaAlls"></div>
+
+                        <div id="areaAlls">
+                            <div class="areaDiv">
+                                <div id="Lagos" class="areaAll">
+                                    <div class="areaAllName blue"> Active Cases by States</div>
+                                    <!-- <div class="areaAllCount">4,064</div> -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="test_side ">
-                <div class="map_main"> <svg id="map_format" xmlns="http://www.w3.org/2000/svg" width="100%"
-                        height="100%" viewBox="-25 -10 300 209" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <div class="map_main">
+                    <svg id="map_format" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                        viewBox="-25 -10 300 209" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="matrix-group" transform="translate(10 0)" transform="scale(1.25)"
                             transform="matrix(1 0 0 1 0 0)" class="svg-pan-zoom">
                             <g class="tooth-elm">
@@ -632,6 +641,7 @@
                             </g>
                         </g>
                     </svg>
+                    <div id="clickMap"> <span>Click on the states to view details</span> </div>
                     <div class="controlss"> <svg preserveAspectRatio="xMaxYMin meet" width="100%" height="100%">
                             <g transform="translate(10,10)">
                                 <g transform="translate(0,47)">
@@ -686,7 +696,6 @@
                                 </g>
                             </g>
                         </svg>
-                        <div> </div>
                     </div>
                 </div>
             </div>

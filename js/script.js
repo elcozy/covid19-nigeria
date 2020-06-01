@@ -47,6 +47,10 @@ const name_codes = {
   NGA2866: "Plateau",
 };
 let allStateData = [];
+var matrix_group = document.getElementById("matrix-group");
+document.onclick = function (t) {
+  matrix_group.contains(t.target) || (state_stats.style.display = "none");
+};
 var state_stats = document.getElementById("state_stats");
 const allStatePath = document.getElementsByClassName("states_shapes");
 for (let t = 0; t < allStatePath.length; t++) {
@@ -61,10 +65,10 @@ for (let t = 0; t < allStatePath.length; t++) {
       var n = currentStateData
           ? currentStateData.confirmedCases.toLocaleString("en")
           : 0,
-        o = currentStateData
+        s = currentStateData
           ? currentStateData.casesOnAdmission.toLocaleString("en")
           : 0,
-        s = currentStateData
+        o = currentStateData
           ? currentStateData.discharged.toLocaleString("en")
           : 0;
       (document.getElementById("stateName").innerHTML = name_codes[a]),
@@ -73,9 +77,9 @@ for (let t = 0; t < allStatePath.length; t++) {
         ).innerHTML = currentStateData ? n : 0),
         (document.getElementById(
           "stateTotalActiveCases"
-        ).innerHTML = currentStateData ? o : 0),
+        ).innerHTML = currentStateData ? s : 0),
         (document.getElementById("stateDischarged").innerHTML = currentStateData
-          ? s
+          ? o
           : 0),
         (document.getElementById("stateTotalDeath").innerHTML = currentStateData
           ? currentStateData.death
@@ -84,13 +88,14 @@ for (let t = 0; t < allStatePath.length; t++) {
       var r = t.pageX + 15,
         c = t.pageY - 75;
       state_stats.classList.remove("right");
-      var l = state_stats.getBoundingClientRect();
-      r + l.width > window.innerWidth &&
-        ((r = t.pageX - l.width - 15), state_stats.classList.add("right")),
+      var i = state_stats.getBoundingClientRect();
+      r + i.width > window.innerWidth &&
+        ((r = t.pageX - i.width - 15), state_stats.classList.add("right")),
         (state_stats.style.left = r + "px"),
         (state_stats.style.top = c + "px");
     };
-  (e.onmouseover = n),
+  (e.onmouseout = a),
+    (e.onmouseover = n),
     (e.ontouchstart = n),
     (e.ontouchstart = a),
     (e.onclick = n);
@@ -100,25 +105,29 @@ function setStateBackground(t) {
     const a = allStatePath[e],
       n = a.getAttribute("id");
     (currentStateData = t.find((t) => t.state === name_codes[n])),
-      currentStateData && currentStateData.confirmedCases <= 100
+      currentStateData && currentStateData.confirmedCases <= 10
+        ? a.classList.add("_10")
+        : currentStateData && currentStateData.confirmedCases <= 50
+        ? a.classList.add("_50")
+        : currentStateData && currentStateData.confirmedCases <= 100
         ? a.classList.add("_100")
-        : currentStateData && currentStateData.confirmedCases <= 199
+        : currentStateData && currentStateData.confirmedCases <= 200
         ? a.classList.add("_200")
-        : currentStateData && currentStateData.confirmedCases <= 499
+        : currentStateData && currentStateData.confirmedCases <= 500
         ? a.classList.add("_500")
         : currentStateData && currentStateData.confirmedCases <= 999
         ? a.classList.add("_900")
         : currentStateData && currentStateData.confirmedCases >= 1e3
         ? a.classList.add("_1000")
-        : a.classList.add("_100");
+        : a.classList.add("_10");
   }
 }
 function appendData(t) {
   var e = t.totalConfirmedCases.toLocaleString("en"),
     a = t.totalActiveCases.toLocaleString("en"),
     n = t.death.toLocaleString("en"),
-    o = parseInt(t.totalSamplesTested, 10).toLocaleString("en"),
-    s = t.discharged.toLocaleString("en");
+    s = parseInt(t.totalSamplesTested, 10).toLocaleString("en"),
+    o = t.discharged.toLocaleString("en");
   (totalActiveCase = document.getElementById("totalActiveCases")),
     totalActiveCase && (totalActiveCase.innerHTML = a),
     (totalCasesC = document.getElementById("totalConfirmedCases")),
@@ -128,29 +137,33 @@ function appendData(t) {
     (totalDeat = document.getElementById("totalDeath")),
     totalDeat && (totalDeat.innerHTML = n),
     (totalSamplesTest = document.getElementById("totalSamplesTested")),
-    totalSamplesTest && (totalSamplesTest.innerHTML = o),
+    totalSamplesTest && (totalSamplesTest.innerHTML = s),
     (discharge = document.getElementById("discharged")),
-    discharge && (discharge.innerHTML = s),
+    discharge && (discharge.innerHTML = o),
     setStateBackground((allStateData = t.states)),
     setSideNavList(allStateData);
 }
 function setSideNavList(t) {
-  for (var e = document.getElementById("areaAlls"), a = 0; a < t.length; a++) {
+  var e = document.getElementById("areaAlls");
+  t.sort(function (t, e) {
+    return e.casesOnAdmission - t.casesOnAdmission;
+  });
+  for (var a = 0; a < t.length; a++) {
     var n = t[a].state,
-      o = t[a].casesOnAdmission.toLocaleString("en"),
-      s = (t[a].discharged, document.createElement("div"));
-    s.className = "areaDiv";
+      s = t[a].casesOnAdmission.toLocaleString("en"),
+      o = (t[a].discharged, document.createElement("div"));
+    o.className = "areaDiv";
     var r = document.createElement("div");
     (r.id = n), (r.className = "areaAll");
     var c = document.createElement("div");
     (c.className = "areaAllName"), (c.title = n), (c.innerHTML = n);
-    var l = document.createElement("div");
-    (l.className = "areaAllCount"),
-      (l.innerHTML = o),
-      s.appendChild(r),
+    var i = document.createElement("div");
+    (i.className = "areaAllCount"),
+      (i.innerHTML = s),
+      o.appendChild(r),
       r.appendChild(c),
-      r.appendChild(l),
-      e && e.appendChild(s);
+      r.appendChild(i),
+      e && e.appendChild(o);
   }
 }
 var eventsHandler;
@@ -182,7 +195,7 @@ var panZoom = svgPanZoom("#map_format", {
       var e = t.instance,
         a = 1,
         n = 0,
-        o = 0;
+        s = 0;
       (this.hammer = Hammer(t.svgElement, {
         inputClass: Hammer.SUPPORT_POINTER_EVENTS
           ? Hammer.PointerEventInput
@@ -193,10 +206,10 @@ var panZoom = svgPanZoom("#map_format", {
           e.zoomIn();
         }),
         this.hammer.on("panstart panmove", function (t) {
-          "panstart" === t.type && ((n = 0), (o = 0)),
-            e.panBy({ x: t.deltaX - n, y: t.deltaY - o }),
+          "panstart" === t.type && ((n = 0), (s = 0)),
+            e.panBy({ x: t.deltaX - n, y: t.deltaY - s }),
             (n = t.deltaX),
-            (o = t.deltaY);
+            (s = t.deltaY);
         }),
         this.hammer.on("pinchstart pinchmove", function (t) {
           "pinchstart" === t.type &&

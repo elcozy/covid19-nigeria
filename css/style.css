@@ -18,7 +18,6 @@
   display: flex;
   justify-content: center;
 }
-
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -49,13 +48,12 @@
 }
 @keyframes lds-ring {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0);
   }
   100% {
     transform: rotate(360deg);
   }
 }
-
 div,
 h1,
 h2,
@@ -203,7 +201,6 @@ svg {
   position: relative;
   flex: 1;
   flex-direction: column;
-  padding: 24px 0;
   width: 100%;
 }
 .combinedArea {
@@ -243,7 +240,7 @@ svg {
   flex: 1;
 }
 .areaAllCount {
-  color: blue;
+  color: #00f;
   font-size: 13px !important;
   line-height: 20px;
 }
@@ -264,6 +261,21 @@ svg {
 .num-text {
   color: tomato;
 }
+#clickMap span::before {
+  content: "";
+  background-image: url(/img/infoIcon.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: top;
+  height: 25px;
+  width: 32px;
+  margin-left: 14px;
+  display: inline-block;
+}
+#clickMap span {
+  font-weight: 400;
+  font-size: 0.9rem;
+}
 #map_format {
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -281,7 +293,9 @@ svg {
 .states_shapes {
   stroke-width: 0.1;
   stroke-linecap: round;
+  stroke: #000;
   stroke-linejoin: round;
+  fill: #fff8dc;
 }
 .str2 {
   stroke: #000;
@@ -303,38 +317,26 @@ svg {
   vertical-align: bottom;
   padding-top: 2.8px;
 }
-._100:hover {
-  fill: rgba(214, 18, 18, 0.295);
+._10 {
+  fill: #5ea32d;
 }
-._200:hover {
-  fill: rgba(255, 0, 0, 0.493);
+._50 {
+  fill: #c0db29;
 }
-._500:hover {
-  fill: rgba(255, 0, 0, 0.616);
+._100 {
+  fill: #f1f230;
 }
-._900:hover {
-  fill: rgba(255, 0, 0, 0.774);
+._200 {
+  fill: #eaae06;
 }
-._1000:hover {
-  fill: red;
+._500 {
+  fill: #ef8e06;
 }
-.fil0 {
-  fill: #fff386;
+._900 {
+  fill: #f04809;
 }
-.fil1 {
-  fill: #ffa7cd;
-}
-.fil2 {
-  fill: #92c5ff;
-}
-.fil3 {
-  fill: #bbfa97;
-}
-.fil0:hover,
-.fil1:hover,
-.fil2:hover,
-.fil3:hover {
-  stroke: azure;
+._1000 {
+  fill: #f02511;
 }
 .blue {
   color: #00f;
@@ -374,6 +376,9 @@ svg {
   to {
     stroke-dashoffset: 0;
   }
+}
+.areaAllName.blue {
+  text-align: center;
 }
 svg text {
   display: none;
@@ -533,7 +538,7 @@ footer {
   border-top: 1px solid #ddd;
 }
 a {
-  color: blue;
+  color: #00f;
 }
 @media only screen and (max-width: 620px) {
   body {
