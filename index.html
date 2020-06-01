@@ -5,15 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coronavirus Nigeria</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168047202-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-168047202-1');
+    </script>
     <link rel="icon" type="image/png" href="./img/virus.png">
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.5.0/dist/svg-pan-zoom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <meta name="viewport" content="width=device-width, user-scalable=1.0">
+    <meta name="google-site-verification" content="IAJ2IHei5oiesHynuKl77z5ZNpjIHWU9vYV0Byt1Wrw" />
 </head>
 
-<body>
-    <div class="wholeBody">
+<div>
+</div>
+
+<body onload="loaderPage()">
+    <div id="loader">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div id="contents" class="wholeBody">
         <div class="head"> <span onclick="collapseBurger()" class="collapse-icon"><img id="imgIcon"
                     onclick="collapseIcon(this)" src="./img/menu.svg" alt=""></i></span>
             <div class="vl"></div>

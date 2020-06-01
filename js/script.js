@@ -1,3 +1,12 @@
+function loaderPage() {
+  myVar = setTimeout(showPage, 2500);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("contents").style.display = "block";
+}
+
 function collapseBurger() {
   var t = document.getElementById("infoD");
   "none" === t.style.display
