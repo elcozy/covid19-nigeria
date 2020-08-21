@@ -105,19 +105,19 @@ function setStateBackground(t) {
     const a = allStatePath[e],
       n = a.getAttribute("id");
     (currentStateData = t.find((t) => t.state === name_codes[n])),
-      currentStateData && currentStateData.confirmedCases <= 10
+      currentStateData && currentStateData.casesOnAdmission <= 10
         ? a.classList.add("_10")
-        : currentStateData && currentStateData.confirmedCases <= 50
+        : currentStateData && currentStateData.casesOnAdmission <= 50
         ? a.classList.add("_50")
-        : currentStateData && currentStateData.confirmedCases <= 100
+        : currentStateData && currentStateData.casesOnAdmission <= 100
         ? a.classList.add("_100")
-        : currentStateData && currentStateData.confirmedCases <= 200
+        : currentStateData && currentStateData.casesOnAdmission <= 200
         ? a.classList.add("_200")
-        : currentStateData && currentStateData.confirmedCases <= 500
+        : currentStateData && currentStateData.casesOnAdmission <= 500
         ? a.classList.add("_500")
-        : currentStateData && currentStateData.confirmedCases <= 999
+        : currentStateData && currentStateData.casesOnAdmission <= 999
         ? a.classList.add("_900")
-        : currentStateData && currentStateData.confirmedCases >= 1e3
+        : currentStateData && currentStateData.casesOnAdmission >= 1e3
         ? a.classList.add("_1000")
         : a.classList.add("_10");
   }
