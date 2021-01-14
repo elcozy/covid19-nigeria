@@ -126,7 +126,9 @@ function appendData(t) {
   var e = t.totalConfirmedCases.toLocaleString("en"),
     a = t.totalActiveCases.toLocaleString("en"),
     n = t.death.toLocaleString("en"),
-    s = parseInt(t.totalSamplesTested, 10).toLocaleString("en"),
+    s = parseInt(t.totalSamplesTested.replace(/,/g, ""), 10).toLocaleString(
+      "en"
+    ),
     o = t.discharged.toLocaleString("en");
   (totalActiveCase = document.getElementById("totalActiveCases")),
     totalActiveCase && (totalActiveCase.innerHTML = a),
