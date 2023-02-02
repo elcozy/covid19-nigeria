@@ -1,8 +1,11 @@
+// import backupData from '../backupData.json';
+// const backupData = require('../backupData.json');
+
 function collapseBurger() {
-  var t = document.getElementById("infoD");
-  "none" === t.style.display
-    ? (t.style.display = "block")
-    : (t.style.display = "none");
+  let infoD = document.getElementById("infoD");
+  infoD.style.display === "none"
+    ? infoD.style.display = "block"
+    : infoD.style.display = "none";
 }
 function collapseIcon(t) {
   t.src.match(/more/) ? (t.src = "./img/menu.svg") : (t.src = "./img/more.svg");
@@ -47,11 +50,11 @@ const name_codes = {
   NGA2866: "Plateau",
 };
 let allStateData = [];
-var matrix_group = document.getElementById("matrix-group");
+let matrix_group = document.getElementById("matrix-group");
 document.onclick = function (t) {
   matrix_group.contains(t.target) || (state_stats.style.display = "none");
 };
-var state_stats = document.getElementById("state_stats");
+let state_stats = document.getElementById("state_stats");
 const allStatePath = document.getElementsByClassName("states_shapes");
 for (let t = 0; t < allStatePath.length; t++) {
   const e = allStatePath[t],
@@ -62,7 +65,7 @@ for (let t = 0; t < allStatePath.length; t++) {
     n = function (t) {
       const a = e.getAttribute("id");
       currentStateData = allStateData.find((t) => t.state === name_codes[a]);
-      var n = currentStateData
+      let n = currentStateData
           ? currentStateData.confirmedCases.toLocaleString("en")
           : 0,
         s = currentStateData
@@ -72,12 +75,10 @@ for (let t = 0; t < allStatePath.length; t++) {
           ? currentStateData.discharged.toLocaleString("en")
           : 0;
       (document.getElementById("stateName").innerHTML = name_codes[a]),
-        (document.getElementById(
-          "stateTotalConfirmedCase"
-        ).innerHTML = currentStateData ? n : 0),
-        (document.getElementById(
-          "stateTotalActiveCases"
-        ).innerHTML = currentStateData ? s : 0),
+        (document.getElementById("stateTotalConfirmedCase").innerHTML =
+          currentStateData ? n : 0),
+        (document.getElementById("stateTotalActiveCases").innerHTML =
+          currentStateData ? s : 0),
         (document.getElementById("stateDischarged").innerHTML = currentStateData
           ? o
           : 0),
@@ -85,10 +86,10 @@ for (let t = 0; t < allStatePath.length; t++) {
           ? currentStateData.death
           : 0),
         (state_stats.style.display = "block");
-      var r = t.pageX + 15,
+      let r = t.pageX + 15,
         c = t.pageY - 75;
       state_stats.classList.remove("right");
-      var i = state_stats.getBoundingClientRect();
+      let i = state_stats.getBoundingClientRect();
       r + i.width > window.innerWidth &&
         ((r = t.pageX - i.width - 15), state_stats.classList.add("right")),
         (state_stats.style.left = r + "px"),
@@ -100,6 +101,7 @@ for (let t = 0; t < allStatePath.length; t++) {
     (e.ontouchstart = a),
     (e.onclick = n);
 }
+
 function setStateBackground(t) {
   for (let e = 0; e < allStatePath.length; e++) {
     const a = allStatePath[e],
@@ -123,7 +125,7 @@ function setStateBackground(t) {
   }
 }
 function appendData(t) {
-  var e = t.totalConfirmedCases.toLocaleString("en"),
+  let e = t.totalConfirmedCases.toLocaleString("en"),
     a = t.totalActiveCases.toLocaleString("en"),
     n = t.death.toLocaleString("en"),
     s = parseInt(t.totalSamplesTested.replace(/,/g, ""), 10).toLocaleString(
@@ -146,20 +148,20 @@ function appendData(t) {
     setSideNavList(allStateData);
 }
 function setSideNavList(t) {
-  var e = document.getElementById("areaAlls");
+  let e = document.getElementById("areaAlls");
   t.sort(function (t, e) {
     return e.casesOnAdmission - t.casesOnAdmission;
   });
-  for (var a = 0; a < t.length; a++) {
-    var n = t[a].state,
+  for (let a = 0; a < t.length; a++) {
+    let n = t[a].state,
       s = t[a].casesOnAdmission.toLocaleString("en"),
       o = (t[a].discharged, document.createElement("div"));
     o.className = "areaDiv";
-    var r = document.createElement("div");
+    let r = document.createElement("div");
     (r.id = n), (r.className = "areaAll");
-    var c = document.createElement("div");
+    let c = document.createElement("div");
     (c.className = "areaAllName"), (c.title = n), (c.innerHTML = n);
-    var i = document.createElement("div");
+    let i = document.createElement("div");
     (i.className = "areaAllCount"),
       (i.innerHTML = s),
       o.appendChild(r),
@@ -168,19 +170,35 @@ function setSideNavList(t) {
       e && e.appendChild(o);
   }
 }
-var eventsHandler;
-fetch("https://covidnigeria.herokuapp.com/api")
-  .then(function (t) {
-    return t.json();
-  })
-  .then(function (t) {
-    (document.getElementById("loader").style.display = "none"),
+let eventsHandler;
+const fetchData = () => {
+  fetch("https://covidnigeria.herokuapp.com/api")
+    .then(function (t) {
+      return t.json();
+    })
+    .then(function (t) {
+      document.getElementById("loader").style.display = "none";
       appendData(t.data);
-  })
-  .catch(function (t) {
-    console.log("error: " + t);
-  });
-var panZoom = svgPanZoom("#map_format", {
+    })
+    .catch(function (t) {
+      console.log("error: " + t);
+      console.log("Falling back to BACKUP data from 2020 June");
+      document.getElementById("loader").style.display = "none";
+
+      fetch("../backupData.json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((d) => {
+          document.getElementById("loader").style.display = "none";
+          appendData(d.data);
+        });
+    });
+};
+
+fetchData();
+
+let panZoom = svgPanZoom("#map_format", {
   zoomEnabled: !0,
   controlIconsEnabled: !1,
   center: !0,
@@ -194,7 +212,7 @@ var panZoom = svgPanZoom("#map_format", {
       "touchcancel",
     ],
     init: function (t) {
-      var e = t.instance,
+      let e = t.instance,
         a = 1,
         n = 0,
         s = 0;
@@ -234,18 +252,22 @@ var panZoom = svgPanZoom("#map_format", {
     state_stats.style.display = "none";
   },
 });
-window.addEventListener("resize", function (t) {
-  t.preventDefault(), panZoom.resize(), panZoom.fit(), panZoom.center();
-}),
-  document.getElementById("zoom-in").addEventListener("click", function (t) {
-    t.preventDefault(), panZoom.zoomIn();
-  }),
-  document.getElementById("zoom-out").addEventListener("click", function (t) {
-    t.preventDefault(), panZoom.zoomOut();
-  }),
-  document.getElementById("reset").addEventListener("click", function (t) {
-    t.preventDefault(), panZoom.resetZoom(), panZoom.center();
-  }),
-  (window.onresize = function () {
-    document.getElementById("infoD").style.display = "block";
-  });
+window.addEventListener("resize", (t) => {
+  t.preventDefault();
+  panZoom.resize().fit().center();
+});
+document.getElementById("zoom-in").addEventListener("click", (t) => {
+  t.preventDefault();
+  panZoom.zoomIn();
+});
+document.getElementById("zoom-out").addEventListener("click", (t) => {
+  t.preventDefault();
+  panZoom.zoomOut();
+});
+document.getElementById("reset").addEventListener("click", (t) => {
+  t.preventDefault();
+  panZoom.resetZoom().center();
+});
+window.onresize = () => {
+  document.getElementById("infoD").style.display = "block";
+};
