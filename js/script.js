@@ -185,7 +185,7 @@ const fetchData = () => {
       console.log("Falling back to BACKUP data from 2020 June");
       document.getElementById("loader").style.display = "none";
 
-      fetch("../backupData.json")
+      fetch("./backupData.json")
         .then((response) => {
           return response.json();
         })
