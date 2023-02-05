@@ -203,11 +203,7 @@ svg {
   flex-direction: column;
   width: 100%;
 }
-.combinedArea {
-  padding: 0 20px;
-  width: 100%;
-  margin-left: -22px;
-}
+
 .areaDiv {
   display: flex;
   align-items: center;
